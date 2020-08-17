@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Empty Stack 1`] = `
+Object {
+  "Resources": Object {
+    "TestConstructConstructQueue35DCEBD2": Object {
+      "Properties": Object {
+        "VisibilityTimeout": 300,
+      },
+      "Type": "AWS::SQS::Queue",
+    },
+    "TestConstructConstructQueueMyTestStackTestConstructConstructTopicC756E8756B81E37A": Object {
+      "Properties": Object {
+        "Endpoint": Object {
+          "Fn::GetAtt": Array [
+            "TestConstructConstructQueue35DCEBD2",
+            "Arn",
+          ],
+        },
+        "Protocol": "sqs",
+        "TopicArn": Object {
+          "Ref": "TestConstructConstructTopicE115B9F1",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "TestConstructConstructQueuePolicyA6EDD2D0": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sqs:SendMessage",
+              "Condition": Object {
+                "ArnEquals": Object {
+                  "aws:SourceArn": Object {
+                    "Ref": "TestConstructConstructTopicE115B9F1",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "sns.amazonaws.com",
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TestConstructConstructQueue35DCEBD2",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "TestConstructConstructQueue35DCEBD2",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "TestConstructConstructTopicE115B9F1": Object {
+      "Type": "AWS::SNS::Topic",
+    },
+  },
+}
+`;
